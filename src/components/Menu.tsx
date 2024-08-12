@@ -1,20 +1,12 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-
-const URL = 'https://virtserver.swaggerhub.com/Detroit_Labs/Taco_Truck/1.0.0';
-
-type MenuItem = {
-  id: string;
-  name: string;
-  category: 'Tacos' | 'Drinks';
-  price: number;
-  discount_percent?: number;
-  discount_threshold?: number;
-};
+import { TACO_TOWN_API } from '../utils/constants';
+import { MenuItem } from '@/utils/types';
+import { useCart } from '@/utils/cartProvider';
 
 const fetchMenu = async (): Promise<MenuItem[]> => {
-  const response = await fetch(`${URL}/menu`);
+  const response = await fetch(`${TACO_TOWN_API}/menu`);
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
@@ -22,15 +14,30 @@ const fetchMenu = async (): Promise<MenuItem[]> => {
 };
 
 const Menu = () => {
+  const { order, setOrder } = useCart();
   const { data: menu, isLoading } = useQuery({
     queryKey: ['MENU'],
     queryFn: fetchMenu,
   });
 
+  console.log(order);
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <div>
-      {isLoading ? <div>Loading...</div> : null}
-      {menu?.map((item) => item.name)}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {menu?.map((item) => (
+          <div
+            key={item.id}
+            className="p-4 border rounded shadow hover:shadow-md transition-shadow duration-200 cursor-pointer"
+            onClick={() => setOrder((prevOrder) => [...prevOrder, item])}
+          >
+            <h3 className="font-bold">{item.name}</h3>
+            <p className="mt-2">${item.price.toFixed(2)}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

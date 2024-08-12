@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ReactQueryClientProvider } from '../components/ReactQueryClientProvider';
+import { CartContextProvider } from '@/utils/cartProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,9 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <ReactQueryClientProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
+      <CartContextProvider>
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </CartContextProvider>
     </ReactQueryClientProvider>
   );
 }
