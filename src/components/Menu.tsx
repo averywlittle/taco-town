@@ -20,6 +20,18 @@ const Menu = () => {
     queryFn: fetchMenu,
   });
 
+  const addItem = (menuItem: MenuItem) => {
+    setOrder((prevOrder) => [...prevOrder, menuItem]);
+  };
+
+  const removeItem = (menuItem: MenuItem) => {
+    const index = order.findIndex((item) => item.id === menuItem.id);
+    if (index !== -1) {
+      const newOrder = [...order.slice(0, index), ...order.slice(index + 1)];
+      setOrder(newOrder);
+    }
+  };
+
   console.log(order);
 
   if (isLoading) return <div>Loading...</div>;
@@ -27,14 +39,20 @@ const Menu = () => {
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {menu?.map((item) => (
+        {menu?.map((menuItem) => (
           <div
-            key={item.id}
+            key={menuItem.id}
             className="p-4 border rounded shadow hover:shadow-md transition-shadow duration-200 cursor-pointer"
-            onClick={() => setOrder((prevOrder) => [...prevOrder, item])}
           >
-            <h3 className="font-bold">{item.name}</h3>
-            <p className="mt-2">${item.price.toFixed(2)}</p>
+            <h3 className="font-bold">{menuItem.name}</h3>
+            <p className="mt-2">${menuItem.price.toFixed(2)}</p>
+            <button className="p-2 m-2 bg-slate-700" onClick={() => addItem(menuItem)}>
+              +
+            </button>
+            <button className="p-2 m-2 bg-slate-700" onClick={() => removeItem(menuItem)}>
+              -
+            </button>
+            <div>{order?.filter((item) => item.id === menuItem.id).length}</div>
           </div>
         ))}
       </div>
