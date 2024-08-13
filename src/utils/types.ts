@@ -14,3 +14,10 @@ export type CartItem = {
   price: number;
   quantity: number;
 };
+
+export type OrderResponse = {
+  orderStatus?: string;
+  orderReadyTime?: string;
+  errorCode?: string;
+  errorMessage?: string;
+};

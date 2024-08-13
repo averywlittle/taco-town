@@ -15,7 +15,7 @@ const fetchMenu = async (): Promise<MenuItem[]> => {
 
 const Menu = () => {
   const { order, setOrder } = useCart();
-  const { data: menu, isLoading } = useQuery({
+  const { data: menu, isPending } = useQuery({
     queryKey: ['MENU'],
     queryFn: fetchMenu,
   });
@@ -32,9 +32,7 @@ const Menu = () => {
     }
   };
 
-  console.log(order);
-
-  if (isLoading) return <div>Loading...</div>;
+  if (isPending) return <div>Loading...</div>;
 
   return (
     <div>
