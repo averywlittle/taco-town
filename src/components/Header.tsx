@@ -6,7 +6,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 const Header = () => {
   const { order } = useCart();
   return (
-    <div className="w-full flex justify-between py-6 px-16 border-b-2 border-b-cool-grey-100 bg-cool-grey-50 text-cool-grey-900">
+    <div className="w-full flex justify-between py-6 px-4 md:px-16 border-b-2 border-b-cool-grey-100 bg-cool-grey-50 text-cool-grey-900">
       <div className="flex items-center gap-4">
         <div className="bg-orange-200 rounded-full w-14 h-14 text-4xl flex justify-center items-center">
           🌮
