@@ -17,7 +17,7 @@ const fetchMenu = async (): Promise<MenuItem[]> => {
 };
 
 const Menu = () => {
-  const { order, setOrder, total } = useCart();
+  const { order, setOrder, setIsCartOpen, total } = useCart();
   const { data: menu, isPending } = useQuery({
     queryKey: ['MENU'],
     queryFn: fetchMenu,
@@ -105,11 +105,12 @@ const Menu = () => {
               <p>Total</p>
               <p className="font-semibold">${total}</p>
             </div>
-            <Link href="/checkout">
-              <button className="flex justify-center items-center h-12 w-42 bg-cool-grey-50 p-4 cursor-pointer drop-shadow rounded-2xl">
-                View Your Order
-              </button>
-            </Link>
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="flex justify-center items-center h-12 w-42 bg-cool-grey-50 p-4 cursor-pointer drop-shadow rounded-2xl"
+            >
+              View Your Order
+            </button>
           </div>
         </div>
       </div>
