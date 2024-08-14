@@ -79,13 +79,13 @@ const Menu = () => {
                     />
                     <div className="absolute top-2 right-2 flex flex-col gap-2">
                       <button
-                        className="flex justify-center items-center h-8 w-8 rounded-full bg-cool-grey-50 drop-shadow"
+                        className="flex justify-center items-center h-8 w-8 rounded-full bg-cool-grey-50 shadow hover:shadow-md transition-shadow"
                         onClick={() => addItem(menuItem)}
                       >
                         <PlusIcon className="h-4 w-4 stroke-cool-grey-900" />
                       </button>
                       <button
-                        className="flex justify-center items-center h-8 w-8 rounded-full bg-cool-grey-50 drop-shadow"
+                        className="flex justify-center items-center h-8 w-8 rounded-full bg-cool-grey-50 shadow hover:shadow-md transition-shadow"
                         onClick={() => removeItem(menuItem)}
                       >
                         <MinusIcon className="h-4 w-4 stroke-cool-grey-900" />
