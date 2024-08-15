@@ -111,6 +111,7 @@ const Menu = () => {
             <button
               onClick={() => setIsCartOpen(true)}
               className="flex justify-center items-center h-12 w-42 bg-cool-grey-50 p-4 cursor-pointer drop-shadow rounded-2xl"
+              id="view-order"
             >
               View Your Order
             </button>

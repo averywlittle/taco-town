@@ -38,6 +38,7 @@ const Cart = () => {
                 <button
                   onClick={() => setIsCartOpen((prev) => !prev)}
                   className="flex justify-center items-center h-12 w-42 bg-orange-vivid-500 hover:bg-orange-vivid-600 transition-colors duration-300 ease-in-out text-cool-grey-50 font-semibold p-4 cursor-pointer drop-shadow rounded-2xl"
+                  id="cart-checkout"
                 >
                   Checkout
                 </button>

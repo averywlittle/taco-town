@@ -1,10 +1,6 @@
 import { TACO_TOWN_API } from '@/utils/constants';
 import { test, expect, Page } from '@playwright/test';
 
-// [ ] stub fetch
-
-// [ ] stub order
-
 const getMenuItems = async (page: Page) => {
   await page.route(`${TACO_TOWN_API}/menu`, async (route) => {
     const json = [
@@ -57,22 +53,52 @@ const getMenuItems = async (page: Page) => {
   });
 };
 
+const submitOrder = async (page: Page) => {
+  await page.route(`${TACO_TOWN_API}/order`, async (route) => {
+    const json = {
+      orderStatus: 'Prepping your order',
+      orderReadyTime: '2020-06-18T22:00:00+00:00',
+    };
+    await route.fulfill({ json });
+  });
+};
+
 test.describe('taco town', () => {
-  test.only('can add and remove from cart', async ({ page }) => {
+  test('can add and remove from cart', async ({ page }) => {
     await getMenuItems(page);
     await page.goto('http://localhost:3000');
 
-    // Expect a title "to contain" a substring.
     await expect(page.locator('id=menu-item-name').first()).toContainText('Veggie Taco');
+
+    await page.locator('id=add-menu-btn').first().click();
+    await page.locator('id=add-menu-btn').first().click();
+    await page.locator('id=remove-menu-btn').first().click();
+
+    await expect(page.locator('id=menu-item-quantity').first()).toContainText('x1');
   });
 
-  // test('can checkout', async ({ page }) => {
-  //   await page.goto('https://playwright.dev/');
+  test('can checkout and submit order', async ({ page }) => {
+    await getMenuItems(page);
+    await submitOrder(page);
+    await page.goto('http://localhost:3000');
 
-  //   // Click the get started link.
-  //   await page.getByRole('link', { name: 'Get started' }).click();
+    await page.locator('id=add-menu-btn').first().click();
+    await page.locator('id=add-menu-btn').first().click();
 
-  //   // Expects page to have a heading with the name of Installation.
-  //   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-  // });
+    await page.locator('id=add-menu-btn').nth(2).click();
+    await page.locator('id=add-menu-btn').nth(2).click();
+
+    await page.locator('id=view-order').click();
+    await expect(page.locator('id=cart-total')).toContainText('$4');
+    await page.locator('id=cart-checkout').click();
+
+    await page.waitForURL('http://localhost:3000/checkout');
+
+    await page.locator('id=checkout-name').fill('Test');
+    await page.locator('id=checkout-submit').click();
+
+    await expect(page.locator('id=order-success').first()).toContainText(
+      'Your order was submitted successfully!',
+    );
+  });
 });

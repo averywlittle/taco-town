@@ -44,7 +44,7 @@ const Checkout = () => {
     <div className="w-full flex justify-center text-cool-grey-900 mt-16 px-6">
       <div className="w-full lg:w-1/2 flex flex-col gap-4">
         {isOrderSubmitted ? (
-          <div className="w-full rounded-2xl bg-orange-vivid-100/80 px-6 py-4">
+          <div className="w-full rounded-2xl bg-orange-vivid-100/80 px-6 py-4" id="order-success">
             Your order was submitted successfully! It should arrive in 36 min.
           </div>
         ) : null}
@@ -61,6 +61,7 @@ const Checkout = () => {
           }}
           className="text-cool-grey-900 bg-cool-grey-100/80 rounded-2xl py-2 px-4 outline-orange-400"
           value={name}
+          id="checkout-name"
         />
         <CartDetails />
         {isCheckoutDisabled ? (
@@ -71,6 +72,7 @@ const Checkout = () => {
           <button
             onClick={() => submitOrder()}
             className="flex justify-center items-center h-12 w-42 bg-orange-vivid-500 hover:bg-orange-vivid-600 text-cool-grey-50 transition-colors duration-300 ease-in-out font-semibold p-4 cursor-pointer drop-shadow rounded-2xl"
+            id="checkout-submit"
           >
             Submit Order
           </button>

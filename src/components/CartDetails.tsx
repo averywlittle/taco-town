@@ -19,7 +19,7 @@ const CartDetails = () => {
             </div>
           ))}
         </div>
-        <div>
+        <div id="cart-total">
           <p>Total</p>
           <p className="font-semibold">${total}</p>
         </div>
