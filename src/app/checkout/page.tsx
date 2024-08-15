@@ -11,11 +11,13 @@ const Checkout = () => {
   const { cart, total } = useCart();
   const [name, setName] = useState('');
   const [isOrderSubmitted, setIsOrderSubmitted] = useState(false);
+  const [orderErrorMessage, setOrderErrorMessage] = useState('');
 
   const isCheckoutDisabled = name.length === 0;
 
   const { mutate: submitOrder, isPending } = useMutation({
     mutationFn: async (): Promise<OrderResponse> => {
+      setOrderErrorMessage('');
       const response = await fetch(`${TACO_TOWN_API}/order`, {
         method: 'POST',
         headers: {
@@ -33,7 +35,7 @@ const Checkout = () => {
       return response.json();
     },
     onSuccess: () => setIsOrderSubmitted(true),
-    onError: (error) => console.log('Submit Order Error: ', error),
+    onError: (error) => setOrderErrorMessage(error.message),
   });
 
   if (isPending) return <div>Loading...</div>;
@@ -44,6 +46,11 @@ const Checkout = () => {
         {isOrderSubmitted ? (
           <div className="w-full rounded-2xl bg-orange-vivid-100/80 px-6 py-4">
             Your order was submitted successfully! It should arrive in 36 min.
+          </div>
+        ) : null}
+        {orderErrorMessage.length > 0 ? (
+          <div className="w-full rounded-2xl bg-orange-vivid-100/80 px-6 py-4">
+            Sorry! There was a problem with your order: {orderErrorMessage}
           </div>
         ) : null}
         <p>Enter a name for the order:</p>

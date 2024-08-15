@@ -6,7 +6,6 @@ import { MenuItem } from '@/utils/types';
 import { useCart } from '@/utils/cartProvider';
 import Image from 'next/image';
 import { HandThumbUpIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
 
 const fetchMenu = async (): Promise<MenuItem[]> => {
   const response = await fetch(`${TACO_TOWN_API}/menu`);
@@ -52,7 +51,9 @@ const Menu = () => {
               >
                 <div className="w-full flex flex-col p-4 justify-between">
                   <div>
-                    <h3 className="font-bold">{menuItem.name}</h3>
+                    <h3 className="font-bold" id="menu-item-name">
+                      {menuItem.name}
+                    </h3>
                     <p className="w-10/12 md:w-7/12">{description}</p>
                   </div>
                   <div>
@@ -63,7 +64,7 @@ const Menu = () => {
                         {percent}%
                       </div>
                     </div>
-                    <div className="mt-2">
+                    <div className="mt-2" id="menu-item-quantity">
                       x{order?.filter((item) => item.id === menuItem.id).length}
                     </div>
                   </div>
@@ -81,12 +82,14 @@ const Menu = () => {
                       <button
                         className="flex justify-center items-center h-8 w-8 rounded-full bg-cool-grey-50 shadow hover:shadow-md transition-shadow"
                         onClick={() => addItem(menuItem)}
+                        id="add-menu-btn"
                       >
                         <PlusIcon className="h-4 w-4 stroke-cool-grey-900" />
                       </button>
                       <button
                         className="flex justify-center items-center h-8 w-8 rounded-full bg-cool-grey-50 shadow hover:shadow-md transition-shadow"
                         onClick={() => removeItem(menuItem)}
+                        id="remove-menu-btn"
                       >
                         <MinusIcon className="h-4 w-4 stroke-cool-grey-900" />
                       </button>
