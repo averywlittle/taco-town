@@ -18,7 +18,7 @@ const Header = () => {
       </Link>
       <div
         onClick={() => setIsCartOpen((prev) => !prev)}
-        className="bg-orange-vivid-500 hover:bg-orange-vivid-600 rounded-2xl w-16 h-12 flex justify-center items-center gap-2 text-cool-grey-50 cursor-pointer"
+        className="bg-orange-vivid-500 hover:bg-orange-vivid-600 transition-colors duration-300 ease-in-out rounded-2xl w-16 h-12 flex justify-center items-center gap-2 text-cool-grey-50 cursor-pointer"
       >
         <ShoppingCartIcon className="h-6 w-6 stroke-cool-grey-50 fill-cool-grey-50" />
         {order.length}

@@ -63,7 +63,7 @@ const Checkout = () => {
         ) : (
           <button
             onClick={() => submitOrder()}
-            className="flex justify-center items-center h-12 w-42 bg-orange-vivid-500 hover:bg-orange-vivid-600 text-cool-grey-50 font-semibold p-4 cursor-pointer drop-shadow rounded-2xl"
+            className="flex justify-center items-center h-12 w-42 bg-orange-vivid-500 hover:bg-orange-vivid-600 text-cool-grey-50 transition-colors duration-300 ease-in-out font-semibold p-4 cursor-pointer drop-shadow rounded-2xl"
           >
             Submit Order
           </button>
