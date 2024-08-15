@@ -6,7 +6,9 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 const Cart = () => {
-  const { isCartOpen, setIsCartOpen } = useCart();
+  const { isCartOpen, setIsCartOpen, cart } = useCart();
+
+  const isCheckoutDisabled = cart.length === 0;
 
   if (!isCartOpen) return null;
 
@@ -27,14 +29,20 @@ const Cart = () => {
           </div>
           <CartDetails />
           <div className="flex justify-center">
-            <Link href="/checkout">
-              <button
-                onClick={() => setIsCartOpen((prev) => !prev)}
-                className="flex justify-center items-center h-12 w-42 bg-orange-vivid-500 hover:bg-orange-vivid-600 text-cool-grey-50 font-semibold p-4 cursor-pointer drop-shadow rounded-2xl"
-              >
+            {isCheckoutDisabled ? (
+              <button className="flex justify-center items-center h-12 w-42 border-2 bg-cool-grey-400 text-cool-grey-100 font-semibold p-4 rounded-2xl cursor-default">
                 Checkout
               </button>
-            </Link>
+            ) : (
+              <Link href="/checkout">
+                <button
+                  onClick={() => setIsCartOpen((prev) => !prev)}
+                  className="flex justify-center items-center h-12 w-42 bg-orange-vivid-500 hover:bg-orange-vivid-600 text-cool-grey-50 font-semibold p-4 cursor-pointer drop-shadow rounded-2xl"
+                >
+                  Checkout
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
