@@ -19,7 +19,10 @@ const CartDetails = () => {
             </div>
           ))}
         </div>
-        <p>Total: ${total}</p>
+        <div>
+          <p>Total</p>
+          <p className="font-semibold">${total}</p>
+        </div>
       </div>
     </div>
   );
